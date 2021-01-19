@@ -8,6 +8,9 @@
 #include "ProcessOptimizeDlg.h"
 #include "afxdialogex.h"
 
+#include <iostream>
+#include <thread>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -156,12 +159,20 @@ HCURSOR CProcessOptimizeDlg::OnQueryDragIcon()
 }
 
 
+void CProcessOptimizeDlg::TestCpu()
+{
+	while (!is_stop_) {
+		std::cout << "test cpu" << std::endl;
+	}
+}
+
 
 void CProcessOptimizeDlg::OnBnClickedCpuTest()
 {
 	is_stop_ = false;
 
-
+	std::thread cpu_thread(&CProcessOptimizeDlg::TestCpu, this);
+	cpu_thread.detach();
 }
 
 

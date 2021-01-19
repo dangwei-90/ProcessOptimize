@@ -33,9 +33,11 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedCpuTest();
+	afx_msg void OnBnClickedStop();
+
+	void TestCpu();
+
 
 private:
 	bool is_stop_ = true;
-public:
-	afx_msg void OnBnClickedStop();
 };
