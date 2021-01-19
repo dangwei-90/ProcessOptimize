@@ -11,6 +11,7 @@
 #include <iostream>
 #include <thread>
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -70,6 +71,7 @@ BEGIN_MESSAGE_MAP(CProcessOptimizeDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(ID_CPU_TEST, &CProcessOptimizeDlg::OnBnClickedCpuTest)
 	ON_BN_CLICKED(ID_STOP, &CProcessOptimizeDlg::OnBnClickedStop)
+	ON_BN_CLICKED(ID_MEMORY_TEST, &CProcessOptimizeDlg::OnBnClickedMemoryTest)
 END_MESSAGE_MAP()
 
 
@@ -179,4 +181,23 @@ void CProcessOptimizeDlg::OnBnClickedCpuTest()
 void CProcessOptimizeDlg::OnBnClickedStop()
 {
 	is_stop_ = true;
+}
+
+
+void CProcessOptimizeDlg::TestMemoryLeak()
+{
+	while (!is_stop_) {
+		int* arr = new int[200];
+		std::cout << arr << std::endl;
+		Sleep(100);
+	}
+}
+
+
+void CProcessOptimizeDlg::OnBnClickedMemoryTest()
+{
+	is_stop_ = false;
+
+	std::thread memory_thread(&CProcessOptimizeDlg::TestMemoryLeak, this);
+	memory_thread.detach();
 }

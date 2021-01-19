@@ -34,8 +34,10 @@ protected:
 public:
 	afx_msg void OnBnClickedCpuTest();
 	afx_msg void OnBnClickedStop();
+	afx_msg void OnBnClickedMemoryTest();
 
 	void TestCpu();
+	void TestMemoryLeak();
 
 
 private:
